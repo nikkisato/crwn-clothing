@@ -11,7 +11,7 @@ import { createStructuredSelector } from 'reselect';
 import { checkUserSession } from './redux/user/user.actions';
 import CheckoutPage from './pages/checkout/checkout.component';
 
-const App = ({ checkUserSession, currentUser }) => {
+const App = ({ currentUser }) => {
   useEffect(() => {
     checkUserSession();
   }, [checkUserSession]);
