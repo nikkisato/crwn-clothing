@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
 import './header.styles.scss';
+import { auth } from '../../firebase/firebase.utils';
+
 import { ReactComponent as Logo } from '../../assets/original.svg';
 import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
@@ -15,7 +17,7 @@ import {
   OptionLink,
 } from './header.styles';
 
-const Header = ({ currentUser, hidden, signOutStart }) => {
+const Header = () => {
   const currentUser = useContext(CurrentUserContext);
   const { hidden } = useContext(CartContext);
 
@@ -28,7 +30,7 @@ const Header = ({ currentUser, hidden, signOutStart }) => {
         <OptionLink to='/shop'>SHOP</OptionLink>
         <OptionLink to='/contact'>CONTACT</OptionLink>
         {currentUser ? (
-          <OptionDiv onClick={signOutStart}>SIGN OUT</OptionDiv>
+          <OptionDiv onClick={() => auth.signOut()}>SIGN OUT</OptionDiv>
         ) : (
           <OptionLink to='/signin'>SIGN IN</OptionLink>
         )}
