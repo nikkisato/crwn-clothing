@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import './header.styles.scss';
+import './header.styles.jsx';
 import { auth } from '../../firebase/firebase.utils';
 
 import { ReactComponent as Logo } from '../../assets/original.svg';

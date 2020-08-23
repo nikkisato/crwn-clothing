@@ -1,8 +1,7 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
-import './App.css';
-
+import { GlobalStyle } from './global.styles';
 import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
@@ -19,23 +18,23 @@ class App extends React.Component {
     super();
 
     this.state = {
-      currentUser: null
+      currentUser: null,
     };
   }
 
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
 
-        userRef.onSnapshot(snapShot => {
+        userRef.onSnapshot((snapShot) => {
           this.setState({
             currentUser: {
               id: snapShot.id,
-              ...snapShot.data()
-            }
+              ...snapShot.data(),
+            },
           });
         });
       }
@@ -51,6 +50,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
+        <GlobalStyle />
         <CurrentUserContext.Provider value={this.state.currentUser}>
           <Header />
         </CurrentUserContext.Provider>
