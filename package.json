@@ -10,6 +10,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "compression": "^1.7.4",
+    "express-sslify": "^1.2.0",
     "firebase": "^7.17.2",
     "node-sass": "^4.14.1",
     "react": "^16.12.0",
