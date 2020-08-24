@@ -1,4 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
 import {
   CartDropdownContainer,
@@ -10,33 +12,33 @@ import {
 import CartItem from '../cart-item/cart-item.component';
 
 import { withRouter } from 'react-router-dom';
+import { selectCartItems } from '../../redux/cart/cart.selectors';
+import { toggleCartHidden } from '../../redux/cart/cart.actions.js';
 
-import { CartContext } from '../../providers/cart/cart.provider';
+const CartDropdown = ({ history, dispatch, cartItems }) => (
+  <CartDropdownContainer>
+    <CartItemsContainer>
+      {cartItems.length ? (
+        cartItems.map((cartItem) => (
+          <CartItem key={cartItem.id} item={cartItem} />
+        ))
+      ) : (
+        <EmptyMessageContainer>Your cart is empty</EmptyMessageContainer>
+      )}
+    </CartItemsContainer>
 
-const CartDropdown = ({ history }) => {
-  const { cartItems, toggleHidden } = useContext(CartContext);
-  return (
-    <CartDropdownContainer>
-      <CartItemsContainer>
-        {cartItems.length ? (
-          cartItems.map((cartItem) => (
-            <CartItem key={cartItem.id} item={cartItem} />
-          ))
-        ) : (
-          <EmptyMessageContainer>Your cart is empty</EmptyMessageContainer>
-        )}
-      </CartItemsContainer>
+    <CartDropdownButton
+      onClick={() => {
+        history.push('/checkout');
+        dispatch(toggleCartHidden());
+      }}
+    >
+      GO TO CHECKOUT
+    </CartDropdownButton>
+  </CartDropdownContainer>
+);
+const mapStateToProps = createStructuredSelector({
+  cartItems: selectCartItems,
+});
 
-      <CartDropdownButton
-        onClick={() => {
-          history.push('/checkout');
-          toggleHidden();
-        }}
-      >
-        GO TO CHECKOUT
-      </CartDropdownButton>
-    </CartDropdownContainer>
-  );
-};
-
-export default withRouter(CartDropdown);
+export default withRouter(connect(mapStateToProps)(CartDropdown));
