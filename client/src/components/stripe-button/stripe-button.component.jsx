@@ -17,7 +17,7 @@ const StripeCheckoutButton = ({ price }) => {
       },
     })
       .then((response) => {
-        alert('Successful payment');
+        alert('succesful payment');
       })
       .catch((error) => {
         console.log('Payment Error: ', error);
@@ -26,6 +26,7 @@ const StripeCheckoutButton = ({ price }) => {
         );
       });
   };
+
   return (
     <StripeCheckout
       label='Pay Now'
