@@ -32,6 +32,10 @@ app.post('/payment', (req, res) => {
     currency: 'usd',
   };
 
+  app.get('/service-worker.js', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '..', 'build', 'service-worker.js'));
+  });
+
   stripe.charges.create(body, (stripeErr, stripeRes) => {
     if (stripeErr) {
       res.status(500).send({ error: stripeErr });
