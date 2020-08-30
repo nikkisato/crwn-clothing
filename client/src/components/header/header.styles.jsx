@@ -50,3 +50,4 @@ export const OptionLink = styled(Link)`
 export const OptionDiv = styled.div`
   ${OptionContainerStyles}
 `;
+OptionLink.displayName = 'OptionLink';
